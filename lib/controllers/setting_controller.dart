@@ -1,9 +1,22 @@
+import 'package:awecon/config.dart';
 import 'package:awecon/models/setting.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SettingController extends ChangeNotifier {
   Setting setting = Setting();
   int tempOffset = 15;
+
+  Future stopAircon() async {
+    final String endpoint = Config.apiUrl + '/control/off';
+    print(endpoint);
+    final http.Response response = await http.get(endpoint);
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      throw Exception('Failed to load');
+    }
+  }
 
   void reload() {
     notifyListeners();

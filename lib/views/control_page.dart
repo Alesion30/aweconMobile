@@ -74,7 +74,9 @@ class ControlPage extends StatelessWidget {
                         text: '停止する',
                         color: Colors.red[700],
                         textColor: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {
+                          model.stopAircon();
+                        },
                       ),
                       CustomButton(
                         text: '起動する',
