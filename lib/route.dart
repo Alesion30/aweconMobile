@@ -6,7 +6,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'AWECON',
-      theme: ThemeData(primarySwatch: Colors.green),
+      theme: ThemeData(primarySwatch: Colors.blueGrey),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => ControlPage(),
