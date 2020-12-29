@@ -1,4 +1,5 @@
-import 'package:awecon/components/CustomButton.dart';
+import 'package:awecon/components/custom_alert_dialog.dart';
+import 'package:awecon/components/custom_button.dart';
 import 'package:awecon/components/custom_dropdown_button.dart';
 import 'package:awecon/controllers/setting_controller.dart';
 import 'package:awecon/data/SettingItems.dart';
@@ -74,15 +75,59 @@ class ControlPage extends StatelessWidget {
                         text: '停止する',
                         color: Colors.red[700],
                         textColor: Colors.white,
-                        onPressed: () {
-                          model.stopAircon();
+                        onPressed: () async {
+                          final status = await model.stopAircon();
+                          if (status) {
+                            showDialog(
+                              context: context,
+                              builder: (_) {
+                                return CustomAlertDialog(
+                                  title: '通信エラー',
+                                  content: 'エアコンの停止に失敗しました',
+                                );
+                              },
+                            );
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (_) {
+                                return CustomAlertDialog(
+                                  title: '成功!!',
+                                  content: 'エアコンを停止する信号を送信しました',
+                                );
+                              },
+                            );
+                          }
                         },
                       ),
                       CustomButton(
                         text: '起動する',
                         color: Colors.blue[400],
                         textColor: Colors.white,
-                        onPressed: () {},
+                        onPressed: () async {
+                          final status = await model.controlAircon();
+                          if (status) {
+                            showDialog(
+                              context: context,
+                              builder: (_) {
+                                return CustomAlertDialog(
+                                  title: '通信エラー',
+                                  content: 'エアコンの起動に失敗しました',
+                                );
+                              },
+                            );
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (_) {
+                                return CustomAlertDialog(
+                                  title: '成功!!',
+                                  content: 'エアコンを起動する信号を送信しました',
+                                );
+                              },
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),
