@@ -7,9 +7,18 @@ class SettingController extends ChangeNotifier {
   Setting setting = Setting();
   int tempOffset = 15;
   int dirOffset = 1;
+  String apiUrl = Config.apiUrl;
+  TextEditingController apiUrlEditingController =
+      TextEditingController(text: Config.apiUrl);
+
+  void resetApiUrl() {
+    this.apiUrl = Config.apiUrl;
+    this.apiUrlEditingController = TextEditingController(text: Config.apiUrl);
+    this.reload();
+  }
 
   Future<bool> stopAircon() async {
-    final String endpoint = Config.apiUrl + '/control/off';
+    final String endpoint = this.apiUrl + '/control/off';
     print(endpoint);
     final http.Response response = await http.get(endpoint);
     if (response.statusCode == 200) {
@@ -22,7 +31,7 @@ class SettingController extends ChangeNotifier {
   }
 
   Future<bool> controlAircon() async {
-    String endpoint = Config.apiUrl + '/control/on';
+    String endpoint = this.apiUrl + '/control/on';
     endpoint += '?mode=' + this.setting.mode.toString();
     endpoint += '&temp=' + this.setting.temp.toString();
     endpoint += '&fan=' + this.setting.fan.toString();

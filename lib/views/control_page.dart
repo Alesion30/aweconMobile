@@ -21,9 +21,17 @@ class ControlPage extends StatelessWidget {
             return Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(bottom: 20),
+                  padding: EdgeInsets.only(bottom: 10),
                   child: Text(
                     'エアコンの設定情報を入力してください！',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: Text(
+                    '[API_URL: ' + model.apiUrl + ']',
+                    style: TextStyle(fontSize: 13),
                   ),
                 ),
                 CustomDropdownButton(
@@ -135,6 +143,44 @@ class ControlPage extends StatelessWidget {
               ],
             );
           }),
+        ),
+        floatingActionButton: Consumer<SettingController>(
+          builder: (context, model, child) {
+            return FloatingActionButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (_) {
+                    return AlertDialog(
+                      title: Text("API URLの設定"),
+                      content: TextField(
+                        controller: model.apiUrlEditingController,
+                        decoration: InputDecoration(labelText: 'API URL'),
+                        onChanged: (text) {
+                          model.apiUrl = text;
+                          model.reload();
+                        },
+                      ),
+                      actions: [
+                        FlatButton(
+                          child: Text("初期値に戻す"),
+                          onPressed: () => {
+                            model.resetApiUrl(),
+                            Navigator.pop(context),
+                          },
+                        ),
+                        FlatButton(
+                          child: Text("OK"),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Icon(Icons.settings),
+            );
+          },
         ),
       ),
     );
