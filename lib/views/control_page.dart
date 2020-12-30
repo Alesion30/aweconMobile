@@ -2,7 +2,7 @@ import 'package:awecon/components/custom_alert_dialog.dart';
 import 'package:awecon/components/custom_button.dart';
 import 'package:awecon/components/custom_dropdown_button.dart';
 import 'package:awecon/controllers/setting_controller.dart';
-import 'package:awecon/data/SettingItems.dart';
+import 'package:awecon/data/setting_items.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
