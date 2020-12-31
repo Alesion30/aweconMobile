@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 class SettingController extends ChangeNotifier {
   Setting setting = Setting();
   int tempOffset = 15;
-  int dirOffset = 1;
   String apiUrl = Config.apiUrl;
   TextEditingController apiUrlEditingController =
       TextEditingController(text: Config.apiUrl);
@@ -34,9 +33,9 @@ class SettingController extends ChangeNotifier {
     String endpoint = this.apiUrl + '/control/on';
     endpoint += '?mode=' + this.setting.mode.toString();
     endpoint += '&temp=' + this.setting.temp.toString();
-    endpoint += '&fan=' + this.setting.fan.toString();
-    endpoint += '&vdir=' + (this.setting.vdir - dirOffset).toString();
-    endpoint += '&hdir=' + (this.setting.hdir - dirOffset).toString();
+    endpoint += '&fan=' + (this.setting.fan - 1).toString();
+    endpoint += '&vdir=' + (this.setting.vdir - 1).toString();
+    endpoint += '&hdir=' + (this.setting.hdir - 1).toString();
     print(endpoint);
     final http.Response response = await http.get(endpoint);
     if (response.statusCode == 200) {
