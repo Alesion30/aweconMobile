@@ -14,7 +14,10 @@ class CustomDropdownButton extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(right: 50),
-          child: Text(label),
+          child: SizedBox(
+            width: 100,
+            child: Text(label),
+          ),
         ),
         DropdownButton(
           value: value,
